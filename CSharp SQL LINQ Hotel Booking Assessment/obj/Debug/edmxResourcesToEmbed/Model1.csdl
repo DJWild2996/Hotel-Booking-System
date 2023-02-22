@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WorstEverHotelModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Bill">
+    <Key>
+      <PropertyRef Name="BillingID" />
+    </Key>
+    <Property Name="BillingID" Type="Int32" Nullable="false" />
+    <Property Name="GuestIDFK" Type="Int32" Nullable="false" />
+    <Property Name="BarCharge" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="wifiCharge" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="PhoneCharge" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="RoomCharge" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="TotalCharge" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <NavigationProperty Name="Guest" Relationship="Self.FK_Bill_Guests" FromRole="Bill" ToRole="Guests" />
+  </EntityType>
+  <EntityType Name="Booking">
+    <Key>
+      <PropertyRef Name="BookingID" />
+    </Key>
+    <Property Name="BookingID" Type="Int32" Nullable="false" />
+    <Property Name="RoomIDfk" Type="Int32" />
+    <Property Name="BookingFrom" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="BookingTo" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="RoomCost" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <NavigationProperty Name="Room" Relationship="Self.FK_Booking_Rooms" FromRole="Booking" ToRole="Rooms" />
+    <NavigationProperty Name="Guests" Relationship="Self.FK_Guests_Booking" FromRole="Booking" ToRole="Guests" />
+  </EntityType>
+  <EntityType Name="Guest">
+    <Key>
+      <PropertyRef Name="GuestID" />
+    </Key>
+    <Property Name="GuestID" Type="Int32" Nullable="false" />
+    <Property Name="BooklingIDFK" Type="Int32" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ContactNumber" Type="Int32" />
+    <Property Name="NumberOfGuests" Type="Int32" />
+    <Property Name="RoomBooked" Type="Int32" />
+    <Property Name="CheckIn" Type="DateTime" Precision="0" />
+    <Property Name="CheckOut" Type="DateTime" Precision="0" />
+    <Property Name="BooklingDate" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Bills" Relationship="Self.FK_Bill_Guests" FromRole="Guests" ToRole="Bill" />
+    <NavigationProperty Name="Booking" Relationship="Self.FK_Guests_Booking" FromRole="Guests" ToRole="Booking" />
+    <Property Name="Status" Type="Boolean" />
+    <Property Name="Price" Type="Int32" />
+    <Property Name="Meals" Type="Int32" />
+    <Property Name="Activities" Type="Int32" />
+    <Property Name="Vehiclals" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Room">
+    <Key>
+      <PropertyRef Name="RoomID" />
+    </Key>
+    <Property Name="RoomID" Type="Int32" Nullable="false" />
+    <Property Name="SingleBeds_" Type="Int32" Nullable="false" />
+    <Property Name="DoubleBeds_" Type="Int32" Nullable="false" />
+    <Property Name="ExtraFeatures" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SinglePerson" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="C2People" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="ExtraPeople" Type="Decimal" Precision="19" Scale="4" />
+    <NavigationProperty Name="Bookings" Relationship="Self.FK_Booking_Rooms" FromRole="Rooms" ToRole="Booking" />
+    <Property Name="DateBookedFrom" Type="DateTime" Precision="3" />
+    <Property Name="DateBookedTill" Type="DateTime" Precision="3" />
+    <Property Name="RoomCapacity" Type="Int32" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_Bill_Guests">
+    <End Role="Guests" Type="Self.Guest" Multiplicity="1" />
+    <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Guests">
+        <PropertyRef Name="GuestID" />
+      </Principal>
+      <Dependent Role="Bill">
+        <PropertyRef Name="GuestIDFK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Booking_Rooms">
+    <End Role="Rooms" Type="Self.Room" Multiplicity="0..1" />
+    <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rooms">
+        <PropertyRef Name="RoomID" />
+      </Principal>
+      <Dependent Role="Booking">
+        <PropertyRef Name="RoomIDfk" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Guests_Booking">
+    <End Role="Booking" Type="Self.Booking" Multiplicity="0..1" />
+    <End Role="Guests" Type="Self.Guest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Booking">
+        <PropertyRef Name="BookingID" />
+      </Principal>
+      <Dependent Role="Guests">
+        <PropertyRef Name="BooklingIDFK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="WorstEverHotelEntities2" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Bills" EntityType="Self.Bill" />
+    <EntitySet Name="Bookings" EntityType="Self.Booking" />
+    <EntitySet Name="Guests" EntityType="Self.Guest" />
+    <EntitySet Name="Rooms" EntityType="Self.Room" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <AssociationSet Name="FK_Bill_Guests" Association="Self.FK_Bill_Guests">
+      <End Role="Guests" EntitySet="Guests" />
+      <End Role="Bill" EntitySet="Bills" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Booking_Rooms" Association="Self.FK_Booking_Rooms">
+      <End Role="Rooms" EntitySet="Rooms" />
+      <End Role="Booking" EntitySet="Bookings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Guests_Booking" Association="Self.FK_Guests_Booking">
+      <End Role="Booking" EntitySet="Bookings" />
+      <End Role="Guests" EntitySet="Guests" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

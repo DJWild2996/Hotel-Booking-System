@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="WorstEverHotelModelStoreContainer" CdmEntityContainer="WorstEverHotelEntities2">
+    <EntitySetMapping Name="Bills">
+      <EntityTypeMapping TypeName="WorstEverHotelModel.Bill">
+        <MappingFragment StoreEntitySet="Bill">
+          <ScalarProperty Name="BillingID" ColumnName="BillingID" />
+          <ScalarProperty Name="GuestIDFK" ColumnName="GuestIDFK" />
+          <ScalarProperty Name="BarCharge" ColumnName="BarCharge" />
+          <ScalarProperty Name="wifiCharge" ColumnName="wifiCharge" />
+          <ScalarProperty Name="PhoneCharge" ColumnName="PhoneCharge" />
+          <ScalarProperty Name="RoomCharge" ColumnName="RoomCharge" />
+          <ScalarProperty Name="TotalCharge" ColumnName="TotalCharge" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Bookings">
+      <EntityTypeMapping TypeName="WorstEverHotelModel.Booking">
+        <MappingFragment StoreEntitySet="Booking">
+          <ScalarProperty Name="BookingID" ColumnName="BookingID" />
+          <ScalarProperty Name="RoomIDfk" ColumnName="RoomIDfk" />
+          <ScalarProperty Name="BookingFrom" ColumnName="BookingFrom" />
+          <ScalarProperty Name="BookingTo" ColumnName="BookingTo" />
+          <ScalarProperty Name="RoomCost" ColumnName="RoomCost" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Guests">
+      <EntityTypeMapping TypeName="WorstEverHotelModel.Guest">
+        <MappingFragment StoreEntitySet="Guests">
+          <ScalarProperty Name="Vehiclals" ColumnName="Vehiclals" />
+          <ScalarProperty Name="Activities" ColumnName="Activities" />
+          <ScalarProperty Name="Meals" ColumnName="Meals" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="GuestID" ColumnName="GuestID" />
+          <ScalarProperty Name="BooklingIDFK" ColumnName="BooklingIDFK" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+          <ScalarProperty Name="NumberOfGuests" ColumnName="NumberOfGuests" />
+          <ScalarProperty Name="RoomBooked" ColumnName="RoomBooked" />
+          <ScalarProperty Name="CheckIn" ColumnName="CheckIn" />
+          <ScalarProperty Name="CheckOut" ColumnName="CheckOut" />
+          <ScalarProperty Name="BooklingDate" ColumnName="BooklingDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rooms">
+      <EntityTypeMapping TypeName="WorstEverHotelModel.Room">
+        <MappingFragment StoreEntitySet="Rooms">
+          <ScalarProperty Name="RoomCapacity" ColumnName="RoomCapacity" />
+          <ScalarProperty Name="DateBookedTill" ColumnName="DateBookedTill" />
+          <ScalarProperty Name="DateBookedFrom" ColumnName="DateBookedFrom" />
+          <ScalarProperty Name="RoomID" ColumnName="RoomID" />
+          <ScalarProperty Name="SingleBeds_" ColumnName="SingleBeds#" />
+          <ScalarProperty Name="DoubleBeds_" ColumnName="DoubleBeds#" />
+          <ScalarProperty Name="ExtraFeatures" ColumnName="ExtraFeatures" />
+          <ScalarProperty Name="SinglePerson" ColumnName="SinglePerson" />
+          <ScalarProperty Name="C2People" ColumnName="2People" />
+          <ScalarProperty Name="ExtraPeople" ColumnName="ExtraPeople" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="WorstEverHotelModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

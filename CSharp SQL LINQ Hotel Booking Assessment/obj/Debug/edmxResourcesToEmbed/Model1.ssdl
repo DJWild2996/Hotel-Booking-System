@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WorstEverHotelModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Bill">
+    <Key>
+      <PropertyRef Name="BillingID" />
+    </Key>
+    <Property Name="BillingID" Type="int" Nullable="false" />
+    <Property Name="GuestIDFK" Type="int" Nullable="false" />
+    <Property Name="BarCharge" Type="money" />
+    <Property Name="wifiCharge" Type="money" />
+    <Property Name="PhoneCharge" Type="money" />
+    <Property Name="RoomCharge" Type="money" />
+    <Property Name="TotalCharge" Type="money" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Booking">
+    <Key>
+      <PropertyRef Name="BookingID" />
+    </Key>
+    <Property Name="BookingID" Type="int" Nullable="false" />
+    <Property Name="RoomIDfk" Type="int" />
+    <Property Name="BookingFrom" Type="date" Nullable="false" />
+    <Property Name="BookingTo" Type="date" Nullable="false" />
+    <Property Name="RoomCost" Type="money" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Guests">
+    <Key>
+      <PropertyRef Name="GuestID" />
+    </Key>
+    <Property Name="GuestID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BooklingIDFK" Type="int" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Address" Type="nvarchar" MaxLength="50" />
+    <Property Name="ContactNumber" Type="int" />
+    <Property Name="NumberOfGuests" Type="int" />
+    <Property Name="RoomBooked" Type="int" />
+    <Property Name="CheckIn" Type="date" />
+    <Property Name="CheckOut" Type="date" />
+    <Property Name="BooklingDate" Type="date" />
+    <Property Name="Status" Type="bit" />
+    <Property Name="Price" Type="int" />
+    <Property Name="Meals" Type="int" />
+    <Property Name="Activities" Type="int" />
+    <Property Name="Vehiclals" Type="int" />
+  </EntityType>
+  <EntityType Name="Rooms">
+    <Key>
+      <PropertyRef Name="RoomID" />
+    </Key>
+    <Property Name="RoomID" Type="int" Nullable="false" />
+    <Property Name="SingleBeds#" Type="int" Nullable="false" />
+    <Property Name="DoubleBeds#" Type="int" Nullable="false" />
+    <Property Name="ExtraFeatures" Type="nvarchar" MaxLength="50" />
+    <Property Name="SinglePerson" Type="money" Nullable="false" />
+    <Property Name="2People" Type="money" />
+    <Property Name="ExtraPeople" Type="money" />
+    <Property Name="DateBookedFrom" Type="datetime" />
+    <Property Name="DateBookedTill" Type="datetime" />
+    <Property Name="RoomCapacity" Type="int" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_Bill_Guests">
+    <End Role="Guests" Type="Self.Guests" Multiplicity="1" />
+    <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Guests">
+        <PropertyRef Name="GuestID" />
+      </Principal>
+      <Dependent Role="Bill">
+        <PropertyRef Name="GuestIDFK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Booking_Rooms">
+    <End Role="Rooms" Type="Self.Rooms" Multiplicity="0..1" />
+    <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rooms">
+        <PropertyRef Name="RoomID" />
+      </Principal>
+      <Dependent Role="Booking">
+        <PropertyRef Name="RoomIDfk" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="WorstEverHotelModelStoreContainer">
+    <EntitySet Name="Bill" EntityType="Self.Bill" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Booking" EntityType="Self.Booking" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Guests" EntityType="Self.Guests" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Rooms" EntityType="Self.Rooms" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Bill_Guests" Association="Self.FK_Bill_Guests">
+      <End Role="Guests" EntitySet="Guests" />
+      <End Role="Bill" EntitySet="Bill" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Booking_Rooms" Association="Self.FK_Booking_Rooms">
+      <End Role="Rooms" EntitySet="Rooms" />
+      <End Role="Booking" EntitySet="Booking" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
